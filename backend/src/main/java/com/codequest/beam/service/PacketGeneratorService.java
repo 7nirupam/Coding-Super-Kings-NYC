@@ -25,9 +25,16 @@ public class PacketGeneratorService {
                     "Also, write a short tailored summary (2-3 sentences) matching the candidate's experience to the job's key requirements, to act as a cover letter snippet. " +
                     "Also, identify matched skills. " +
                     "Finally, provide the count of fields you were able to fill, and calculate the estimated time saved (assume 15 seconds per filled field). " +
-                    "Output the result EXACTLY as this JSON schema: \n" +
+                    "Output the result EXACTLY as this JSON schema. You MUST use these exact keys for filledFields: \n" +
                     "{\n" +
-                    "  \"filledFields\": { \"fieldName1\": \"value1\", \"fieldName2\": \"value2\" },\n" +
+                    "  \"filledFields\": {\n" +
+                    "    \"fullName\": \"string (candidate's name)\",\n" +
+                    "    \"email\": \"string (candidate's email)\",\n" +
+                    "    \"phone\": \"string (candidate's phone)\",\n" +
+                    "    \"education\": \"string (summary of education)\",\n" +
+                    "    \"experience\": \"string (summary of work experience)\",\n" +
+                    "    \"coverLetter\": \"string (a generated cover letter snippet or summary)\"\n" +
+                    "  },\n" +
                     "  \"tailoredSummary\": \"string\",\n" +
                     "  \"matchedSkills\": [\"string\"],\n" +
                     "  \"fieldsFilledCount\": 0,\n" +
