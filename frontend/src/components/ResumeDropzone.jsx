@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-function ResumeDropzone({ onFileSelect }) {
+function ResumeDropzone({ onFileSelect, loading }) {
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -37,8 +37,22 @@ function ResumeDropzone({ onFileSelect }) {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      onClick={handleClick}
+      onClick={!loading ? handleClick : undefined}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (!loading) handleClick();
+        }
+      }}
     >
+      {loading ? (
+        <>
+          <div className="pulse-beam"></div>
+          <div className="dropzone-text">Reading your resume...</div>
+        </>
+      ) : (
+        <>
       <input 
         type="file" 
         ref={fileInputRef} 
@@ -46,8 +60,10 @@ function ResumeDropzone({ onFileSelect }) {
         style={{ display: 'none' }} 
         accept=".pdf,.txt" 
       />
-      <div className="dropzone-text">Drop your resume here</div>
+      <div className="dropzone-text">Drop your resume here, or click to browse</div>
       <div className="dropzone-subtext">PDF or Text files supported</div>
+      </>
+      )}
     </div>
   );
 }

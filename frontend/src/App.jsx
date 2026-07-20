@@ -11,6 +11,9 @@ function App() {
 
   return (
     <div className="app-container">
+      <header className="app-header">
+        <div className="beam-wordmark"><span>Beam</span>App</div>
+      </header>
       {step === 1 && (
         <UploadPage 
           onNext={(data) => { setResumeData(data); setStep(2); }} 

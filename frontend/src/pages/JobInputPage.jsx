@@ -25,28 +25,30 @@ function JobInputPage({ onNext, onBack }) {
   };
 
   if (loading) {
-    return <LoadingState message="Analyzing job requirements..." />;
+    return <LoadingState />;
   }
 
   return (
     <div className="page-container fade-in">
       <div className="hero-header">
-        <h2 className="display-text" style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Paste the Job Details</h2>
-        <p>Drop in the raw text of the job you want to apply for.</p>
+        <h2 className="display-text" style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Paste the job you're applying to.</h2>
       </div>
 
       <textarea 
         className="job-textarea"
-        placeholder="Paste job posting text here..."
+        placeholder="e.g. Seeking a Senior Software Engineer with 5+ years of experience in Java, Spring Boot, and React..."
         value={text}
         onChange={e => setText(e.target.value)}
       />
       
+      <div className="divider"><span>or paste a link</span></div>
+      <input type="text" className="job-url-input" placeholder="https://linkedin.com/jobs/..." />
+      
       {error && <p className="error-text">{error}</p>}
       
       <div className="action-row">
-        <button className="btn-secondary" onClick={onBack} disabled={loading}>Go Back</button>
-        <button className="btn-primary" onClick={handleParseJob} disabled={loading}>
+        <button className="btn-secondary" onClick={onBack} disabled={loading}>Back</button>
+        <button className="btn-primary" onClick={handleParseJob} disabled={loading || !text.trim()}>
           Fill this application
         </button>
       </div>

@@ -37,7 +37,8 @@ function FilledFormPreview({ packet }) {
         {fields.map((field, index) => {
           const isVisible = index < filledCount;
           const isJustFilled = index === filledCount - 1;
-          
+          const isMissing = isVisible && (!field.value || field.value === '[]' || field.value.length === 0);
+
           return (
             <div 
               key={field.id} 
@@ -46,16 +47,16 @@ function FilledFormPreview({ packet }) {
               <label>{field.label}</label>
               {field.id === 'education' || field.id === 'experience' || field.id === 'coverLetter' ? (
                 <textarea 
-                  className="beam-textarea"
-                  value={isVisible ? field.value : ''} 
+                  className={`beam-textarea ${isMissing ? 'missing' : ''}`}
+                  value={isVisible ? (isMissing ? 'not found in resume' : (typeof field.value === 'object' ? JSON.stringify(field.value, null, 2) : field.value)) : ''} 
                   readOnly 
                   style={{ height: field.id === 'experience' ? '120px' : '80px' }}
                 />
               ) : (
                 <input 
                   type={field.id === 'email' ? 'email' : field.id === 'phone' ? 'tel' : 'text'}
-                  className="beam-input" 
-                  value={isVisible ? field.value : ''} 
+                  className={`beam-input ${isMissing ? 'missing' : ''}`} 
+                  value={isVisible ? (isMissing ? 'not found in resume' : field.value) : ''} 
                   readOnly 
                 />
               )}

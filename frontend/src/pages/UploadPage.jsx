@@ -16,11 +16,8 @@ function UploadPage({ onNext }) {
     try {
       const data = await apiClient.uploadResume(selectedFile);
       setParsedSnippet(data.name || "Resume");
-      // For this demo flow, we can advance automatically or wait for user to click next
-      // Let's hold on this page to show the success state snippet, then let them click next
-      setTimeout(() => {
-        onNext(data);
-      }, 800);
+      // Wait for user to click Continue
+
     } catch (err) {
       setError("We couldn't read that resume. Please try a text-based PDF.");
       setFile(null);
@@ -29,23 +26,24 @@ function UploadPage({ onNext }) {
     }
   };
 
-  if (loading) {
-    return <LoadingState message="Extracting your resume..." />;
-  }
+  // Removed LoadingState replacement so Dropzone can handle the loading state
+
 
   return (
     <div className="page-container fade-in">
       <div className="hero-header beam-sweep">
         <h1 className="display-text">Stop retyping your resume.</h1>
-        <p>Beam your background straight into any job application.</p>
+        <p>Upload once. Beam fills every application after that.</p>
       </div>
 
       {!parsedSnippet ? (
-        <ResumeDropzone onFileSelect={handleFileSelect} />
+        <ResumeDropzone onFileSelect={handleFileSelect} loading={loading} />
       ) : (
         <div className="dropzone success">
-          <div className="dropzone-text" style={{ color: 'var(--beam-gold)' }}>Ready to beam!</div>
-          <div className="dropzone-subtext">Found resume for {parsedSnippet}</div>
+          <div className="dropzone-text" style={{ color: 'var(--beam-gold)' }}>✓ Parsed: {parsedSnippet}</div>
+          <div className="action-row" style={{ marginTop: '1rem', justifyContent: 'center' }}>
+            <button className="btn-primary" onClick={() => onNext({ name: parsedSnippet })}>Continue</button>
+          </div>
         </div>
       )}
 

@@ -25,7 +25,7 @@ function ResultPage({ resumeData, jobData, onReset }) {
   }, [resumeData, jobData]);
 
   if (loading) {
-    return <LoadingState message="Beaming your application details..." />;
+    return <LoadingState message="Beaming your application details" />;
   }
 
   if (error) {
@@ -43,16 +43,20 @@ function ResultPage({ resumeData, jobData, onReset }) {
   }
 
   return (
-    <div className="page-container fade-in" style={{ maxWidth: '1000px' }}>
-      <div className="result-layout">
-        <OldWayMock />
-        <FilledFormPreview packet={packet} />
-        
-        {/* We have 6 fields explicitly shown in the UI */}
+    <div className="page-container fade-in" style={{ maxWidth: '1200px', paddingTop: '2rem' }}>
+      
+      <div className="click-counter-wrapper">
         <ClickCounter packet={packet} totalFields={6} />
       </div>
 
+      <div className="result-layout">
+        <OldWayMock />
+        <div className="divider-beam"></div>
+        <FilledFormPreview packet={packet} />
+      </div>
+
       <div className="action-row" style={{ justifyContent: 'center', marginTop: '4rem' }}>
+         <button className="btn-secondary" onClick={() => window.location.reload()}>Try another job posting</button>
          <button className="btn-secondary" onClick={onReset}>Start Over</button>
       </div>
     </div>
