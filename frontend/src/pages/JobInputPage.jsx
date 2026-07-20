@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { apiClient } from '../api/apiClient';
+import { parseJob } from '../utils/matchingEngine';
 import LoadingState from '../components/LoadingState';
 
 function JobInputPage({ onNext, onBack }) {
@@ -15,11 +15,12 @@ function JobInputPage({ onNext, onBack }) {
     setLoading(true);
     setError(null);
     try {
-      const data = await apiClient.parseJob(text);
-      onNext(data);
+      // Deterministic, offline parsing
+      const data = parseJob(text);
+      // Simulate slight delay for effect
+      setTimeout(() => onNext(data), 600);
     } catch (err) {
-      setError("We couldn't parse that job description. Ensure it contains actual text.");
-    } finally {
+      setError("We couldn't parse that job description.");
       setLoading(false);
     }
   };

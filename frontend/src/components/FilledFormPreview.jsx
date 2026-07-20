@@ -31,6 +31,15 @@ function FilledFormPreview({ packet }) {
         <p>1 click, 8 seconds</p>
       </div>
 
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px', padding: '0 24px'}}>
+        {packet.matchedSkills && packet.matchedSkills.map(s => (
+          <span key={s} className="match-chip" style={{background: 'var(--beam-gold)', color: 'var(--ink)'}}>{s}</span>
+        ))}
+        {packet.missingSkills && packet.missingSkills.map(s => (
+          <span key={s} className="match-chip" style={{background: 'var(--graphite)', color: 'var(--signal-white)', opacity: 0.8}}>{s}</span>
+        ))}
+      </div>
+
       <form className="beam-form" onSubmit={e => e.preventDefault()}>
         <div className="beam-trace" style={{ height: traceHeight }}></div>
         

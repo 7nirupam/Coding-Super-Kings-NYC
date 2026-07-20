@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { apiClient } from '../api/apiClient';
+import { generatePacket } from '../utils/matchingEngine';
 import OldWayMock from '../components/OldWayMock';
 import FilledFormPreview from '../components/FilledFormPreview';
 import ClickCounter from '../components/ClickCounter';
@@ -13,11 +13,15 @@ function ResultPage({ resumeData, jobData, onReset }) {
   useEffect(() => {
     async function generate() {
       try {
-        const data = await apiClient.generatePacket(resumeData, jobData);
-        setPacket(data);
+        // Deterministic generation
+        const data = generatePacket(resumeData, jobData);
+        // Slight delay for UI transition effect
+        setTimeout(() => {
+          setPacket(data);
+          setLoading(false);
+        }, 800);
       } catch (err) {
         setError("Failed to generate application packet. Please try again.");
-      } finally {
         setLoading(false);
       }
     }

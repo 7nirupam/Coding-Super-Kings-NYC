@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UploadPage from './pages/UploadPage';
+import ProfilePage from './pages/ProfilePage';
 import JobInputPage from './pages/JobInputPage';
 import ResultPage from './pages/ResultPage';
 import './styles/index.css';
@@ -15,7 +15,7 @@ function App() {
         <div className="beam-wordmark"><span>Beam</span>App</div>
       </header>
       {step === 1 && (
-        <UploadPage 
+        <ProfilePage 
           onNext={(data) => { setResumeData(data); setStep(2); }} 
         />
       )}
