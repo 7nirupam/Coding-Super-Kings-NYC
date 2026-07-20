@@ -37,7 +37,11 @@ public class ResumeParserService {
                     "Resume text:\n" + text;
 
             String jsonResponse = llmClient.generateJsonResponse(prompt);
-            jsonResponse = jsonResponse.replaceAll("^```json\\s*", "").replaceAll("\\s*```$", "").trim();
+            int startIndex = jsonResponse.indexOf('{');
+            int endIndex = jsonResponse.lastIndexOf('}');
+            if (startIndex != -1 && endIndex != -1) {
+                jsonResponse = jsonResponse.substring(startIndex, endIndex + 1);
+            }
             System.out.println("LLM Response: " + jsonResponse);
             return objectMapper.readValue(jsonResponse, Resume.class);
         } catch (Exception e) {

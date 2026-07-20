@@ -44,7 +44,11 @@ public class PacketGeneratorService {
                     "Job Posting JSON:\n" + objectMapper.writeValueAsString(job);
 
             String jsonResponse = llmClient.generateJsonResponse(prompt);
-            jsonResponse = jsonResponse.replaceAll("^```json\\s*", "").replaceAll("\\s*```$", "").trim();
+            int startIndex = jsonResponse.indexOf('{');
+            int endIndex = jsonResponse.lastIndexOf('}');
+            if (startIndex != -1 && endIndex != -1) {
+                jsonResponse = jsonResponse.substring(startIndex, endIndex + 1);
+            }
             return objectMapper.readValue(jsonResponse, PacketResponse.class);
         } catch (Exception e) {
             throw new RuntimeException("Failed to generate application packet", e);
