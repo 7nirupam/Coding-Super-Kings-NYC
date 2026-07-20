@@ -1,0 +1,15 @@
+Jane Doe
+jane.doe@example.com
+555-0123
+
+Education
+B.S. Computer Science, State University, 2020
+
+Experience
+Software Engineer at TechCorp (2020-Present)
+- Built scalable microservices in Java and Spring Boot.
+- Designed RESTful APIs for mobile clients.
+- Used React for internal tooling.
+
+Skills
+Java, Spring Boot, React, RESTful APIs, Microservices, HTML, CSS
