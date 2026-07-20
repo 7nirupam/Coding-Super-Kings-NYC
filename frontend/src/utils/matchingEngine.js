@@ -107,12 +107,21 @@ export const generatePacket = (profile, job) => {
   
   filledFields.coverLetter = coverLetter;
   
+  let readinessScore = 0;
+  if (job.keyRequirements && job.keyRequirements.length > 0) {
+    readinessScore = Math.round((matchedSkills.length / job.keyRequirements.length) * 100);
+  } else if (matchedSkills.length > 0) {
+    readinessScore = 100;
+  }
+
   return {
     filledFields,
     matchedSkills,
     missingSkills,
     fieldsFilledCount: Object.keys(filledFields).length,
     estimatedTimeSavedSeconds: Object.keys(filledFields).length * 15,
-    tailoredSummary: coverLetter
+    tailoredSummary: coverLetter,
+    readinessScore,
+    jobRequiredSkillsCount: job.keyRequirements ? job.keyRequirements.length : 0
   };
 };

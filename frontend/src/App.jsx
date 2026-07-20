@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ProfilePage from './pages/ProfilePage';
 import JobInputPage from './pages/JobInputPage';
 import ResultPage from './pages/ResultPage';
+import SessionStatsBanner from './components/SessionStatsBanner';
 import './styles/index.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <header className="app-header">
         <div className="beam-wordmark"><span>Beam</span>App</div>
       </header>
+      <SessionStatsBanner />
       {step === 1 && (
         <ProfilePage 
           onNext={(data) => { setResumeData(data); setStep(2); }} 
